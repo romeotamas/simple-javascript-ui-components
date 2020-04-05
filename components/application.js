@@ -46,6 +46,8 @@ const Form = function () {
     let state = {};
     let submitBtn;
 
+    let onSaveHandler;
+
     this.setField = (name, type, value, fieldOptions = {}) => {
         fields = [...fields, { name, type, value, fieldOptions }];
     };
@@ -56,6 +58,11 @@ const Form = function () {
 
         createFields();
     }
+
+
+    this.onSave = handler => {
+        onSaveHandler = handler;
+    };
 
 
     this.load = () => {
@@ -77,7 +84,9 @@ const Form = function () {
                     frmData[p[0]] = (!isNaN(p[1]) ? Number(p[1]) : p[1]);
                 }
 
-                console.log({ ...state, ...frmData });
+                if (onSaveHandler) {
+                    onSaveHandler({ ...state, ...frmData });
+                }
 
                 evt.preventDefault();
             });

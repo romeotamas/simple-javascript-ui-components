@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     form.setField("name", "text", "");
     form.setField("price", "text", "");
     form.load();
+    form.onSave(frmData => {
+        console.log(frmData);
+    });
 
 
     const table = new Table();
